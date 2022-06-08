@@ -11,17 +11,29 @@ import org.zerock.api01.dto.APIUserDTO;
 import org.zerock.api01.service.APIUserService;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Log4j2
 @RequiredArgsConstructor
 public class APIUserController {
-    
+
+    private final APIUserService apiUserService;
+
+    public static class APIUserNotFoundException extends RuntimeException{
+
+    }
+
     @ApiOperation("Generate Tokens with POST ")
     @PostMapping("/generateToken")
     public Map<String, String> generateToken(@RequestBody APIUserDTO apiUserDTO) {
 
+        Optional<APIUserDTO> result = apiUserService.checkUser(apiUserDTO.getMid(), apiUserDTO.getMpw());
 
-        return null;
+        if (result.isEmpty()){
+            throw new APIUserNotFoundException();
+        }
+
+        return Map.of("ACCESS","1111","REFRESH","2222");
     }
 }
