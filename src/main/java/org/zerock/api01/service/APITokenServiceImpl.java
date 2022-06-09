@@ -32,7 +32,7 @@ public class APITokenServiceImpl implements APITokenService{
         Map<String, Object> claim = Map.of("mid", mid);
 
         //Access Token = 10분
-        String accessToken = jwlUtil.generateToken(claim,10);
+        String accessToken = jwlUtil.generateToken(claim,5);
 
         //RefreshToken = 60분
         String refreshToken = jwlUtil.generateToken(claim,60);
