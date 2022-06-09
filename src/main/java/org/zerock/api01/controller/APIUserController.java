@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.api01.dto.APITokenDTO;
 import org.zerock.api01.dto.APIUserDTO;
+import org.zerock.api01.service.APITokenService;
 import org.zerock.api01.service.APIUserService;
 
 import java.util.Map;
@@ -18,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class APIUserController {
 
-    private final APIUserService apiUserService;
+    private final APITokenService apiTokenService;
 
     public static class APIUserNotFoundException extends RuntimeException{
 
@@ -26,14 +28,15 @@ public class APIUserController {
 
     @ApiOperation("Generate Tokens with POST ")
     @PostMapping("/generateToken")
-    public Map<String, String> generateToken(@RequestBody APIUserDTO apiUserDTO) {
+    public APITokenDTO generateToken(@RequestBody APIUserDTO apiUserDTO) {
 
-        Optional<APIUserDTO> result = apiUserService.checkUser(apiUserDTO.getMid(), apiUserDTO.getMpw());
+//        Optional<APIUserDTO> result = apiUserService.checkUser(apiUserDTO.getMid(), apiUserDTO.getMpw());
+//
+//        if (result.isEmpty()){
+//            throw new APIUserNotFoundException();
+//        }
 
-        if (result.isEmpty()){
-            throw new APIUserNotFoundException();
-        }
+        return apiTokenService.makeTokens(apiUserDTO.getMid(),apiUserDTO.getMpw());
 
-        return Map.of("ACCESS","1111","REFRESH","2222");
     }
 }
