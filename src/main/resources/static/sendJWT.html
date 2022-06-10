@@ -19,6 +19,11 @@
         }).catch(err => {
         console.log("error")
         console.log(err)
+
+        if(err.ERROR === 'RefreshFail'){
+            alert("다시 토큰을 발급받아야 합니다.")
+        }
+
     })
 </script>
 
