@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/apiConnect.js"></script>
+<script>
+    getServerData('/api/sample/doA', {page:1, size:10})
+        .then(data => {
+            console.log("success ")
+            console.log(data)
+        }).catch(err => {
+        console.log("error")
+        console.log(err)
+    })
+</script>
+
+</body>
+</html>
