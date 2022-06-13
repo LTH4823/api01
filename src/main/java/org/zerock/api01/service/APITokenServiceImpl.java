@@ -33,20 +33,19 @@ public class APITokenServiceImpl implements APITokenService{
         APIUser apiUser = result.orElseThrow(() -> new APIUserController.APIUserNotFoundException());
 
         Map<String, Object> claim = Map.of("mid", mid);
+        //Access Token 유효기간 10 분
+        String accessToken = jwtUtil.generateToken(claim, 10);
+        //Refresh Token 유효기간 60분
+        String refreshToken = jwtUtil.generateToken(claim, 60);
 
-        //Access Token = 10분
-        String accessToken = jwtUtil.generateToken(claim,5);
-
-        //RefreshToken = 60분
-        String refreshToken = jwtUtil.generateToken(claim,60);
-
-        APITokenDTO apiTokenDTO = APITokenDTO.builder()
+        APITokenDTO tokenDTO = APITokenDTO.builder()
                 .mid(mid)
                 .access(accessToken)
                 .refresh(refreshToken)
                 .build();
 
-        return apiTokenDTO;
+
+        return tokenDTO;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class APITokenServiceImpl implements APITokenService{
 
         String mid = (String)parseResult.get("mid");
         //Access Token 생성
-        String accessTokenValue = jwtUtil.generateToken(Map.of("mid", mid), 1);
+        String accessTokenValue = jwtUtil.generateToken(Map.of("mid", mid), 10);
 
         //Refresh Token의 유효시간이 충분하다면 그대로
         String refreshTokenValue = refreshToken;
@@ -83,7 +82,7 @@ public class APITokenServiceImpl implements APITokenService{
         //유효시간이 부족하다면
         //1000* 60 * 60 * 24  7day
         //if(gapTime < (1000 * 60 *60 * 24 * 7 ) ){
-        if(gapTime < (1000 * 60 *30  ) ){
+        if(gapTime < (1000 * 60 * 30 ) ){
             log.info("new Refresh Token required...  ");
             refreshTokenValue = jwtUtil.generateToken(Map.of("mid", mid), 60);
         }
@@ -94,7 +93,5 @@ public class APITokenServiceImpl implements APITokenService{
                 .access(accessTokenValue)
                 .build();
     }
-
-
 }
 

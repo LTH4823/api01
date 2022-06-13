@@ -16,7 +16,7 @@ import java.util.Map;
 public class APIAdvice {
 
     @ExceptionHandler({APIUserController.APIUserNotFoundException.class})
-    public ResponseEntity<Map<String, String>>   findUserError(APIUserController.APIUserNotFoundException e) {
+    public ResponseEntity<Map<String, String>> findUserError(APIUserController.APIUserNotFoundException e) {
 
         log.error(e);
         Map<String, String> errorMap = new HashMap<>();
@@ -50,5 +50,4 @@ public class APIAdvice {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
     }
-
 }
