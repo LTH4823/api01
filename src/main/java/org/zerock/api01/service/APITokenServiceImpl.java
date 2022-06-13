@@ -34,9 +34,9 @@ public class APITokenServiceImpl implements APITokenService{
 
         Map<String, Object> claim = Map.of("mid", mid);
         //Access Token 유효기간 10 분
-        String accessToken = jwtUtil.generateToken(claim, 10);
+        String accessToken = jwtUtil.generateToken(claim, 100);
         //Refresh Token 유효기간 60분
-        String refreshToken = jwtUtil.generateToken(claim, 60);
+        String refreshToken = jwtUtil.generateToken(claim, 600);
 
         APITokenDTO tokenDTO = APITokenDTO.builder()
                 .mid(mid)

@@ -108,7 +108,11 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 
         String headerStr = request.getHeader("Authorization");
 
-        if(headerStr == null  || headerStr.length() < 8){
+        if (headerStr == null){
+            throw new AccessTokenException("Cannot find AccessToken");
+        }
+
+        if(headerStr == null || headerStr.length() < 8){
             throw new AccessTokenException("Token length too short");
         }
 

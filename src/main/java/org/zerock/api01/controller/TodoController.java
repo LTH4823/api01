@@ -25,7 +25,9 @@ public class TodoController {
 
         log.info(todoDTO);
 
-        return Map.of("tno", 12L);
+        Long tno = todoService.register(todoDTO);
+
+        return Map.of("tno", tno);
     }
 
 
