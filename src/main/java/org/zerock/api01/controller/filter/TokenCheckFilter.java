@@ -88,7 +88,8 @@ public class TokenCheckFilter extends OncePerRequestFilter {
         response.setHeader("Access-Control-Allow-Origin","*"); //CORS 처리
 
         Map<String,Object> map = new HashMap<>();
-        map.put("ERROR", e.getMsg());
+//        map.put("ERROR", e.getMsg());
+        map.put("ERROR", e.getMessage());
         map.put("TIME", System.currentTimeMillis());
 
         String jsonMsg = gson.toJson(map);
