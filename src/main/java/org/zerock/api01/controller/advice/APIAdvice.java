@@ -52,7 +52,7 @@ public class APIAdvice {
     }
 
     @ExceptionHandler({java.util.NoSuchElementException.class})
-    public ResponseEntity<Map<String, String>> notFound(ExpiredJwtException e) {
+    public ResponseEntity<Map<String, String>> notFound(java.util.NoSuchElementException e) {
 
         log.error(e);
         Map<String, String> errorMap = new HashMap<>();
