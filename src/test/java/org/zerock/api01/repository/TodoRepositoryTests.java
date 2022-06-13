@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.api01.domain.Todo;
+import org.zerock.api01.dto.PageRequestDTO;
 
 import java.time.LocalDate;
 import java.util.stream.IntStream;
@@ -32,6 +33,19 @@ public class TodoRepositoryTests {
             todoRepository.save(todo);
 
         });
+
+    }
+
+    @Test
+    public void testSearch(){
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .keyword("1")
+                .from(LocalDate.of(2022,06,10))
+                .to(LocalDate.of(2022,06,13))
+                .build();
+
+        todoRepository.list(pageRequestDTO);
 
     }
 

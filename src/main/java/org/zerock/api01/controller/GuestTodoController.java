@@ -14,8 +14,8 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/todo")
-public class TodoController {
+@RequestMapping("/guest/todo")
+public class GuestTodoController {
 
     private final TodoService todoService;
 

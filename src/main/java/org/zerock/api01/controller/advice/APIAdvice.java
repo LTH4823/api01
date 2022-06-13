@@ -50,4 +50,16 @@ public class APIAdvice {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
     }
+
+    @ExceptionHandler({java.util.NoSuchElementException.class})
+    public ResponseEntity<Map<String, String>> notFound(ExpiredJwtException e) {
+
+        log.error(e);
+        Map<String, String> errorMap = new HashMap<>();
+
+        errorMap.put("TIME", ""+System.currentTimeMillis());
+        errorMap.put("RESULT",  "Cannot Find Data");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
+    }
 }
